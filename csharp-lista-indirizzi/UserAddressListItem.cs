@@ -12,11 +12,14 @@ namespace csharp_lista_indirizzi
    
         public Address address { get; set; }
 
+        public static int rowCount = 0;
+
 
     public UserAddressListItem(string[] paramsList)
         {
             user = new User(paramsList[((int)(ClassRequiredParams.Name))], paramsList[((int)(ClassRequiredParams.Surname))]);
             address = new Address(paramsList[((int)(ClassRequiredParams.Street))], paramsList[((int)(ClassRequiredParams.City))], paramsList[((int)(ClassRequiredParams.Province))], Convert.ToInt32(paramsList[((int)(ClassRequiredParams.ZIP))]));
+            rowCount++;
         }
 
 
