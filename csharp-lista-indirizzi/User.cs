@@ -11,9 +11,10 @@ namespace csharp_lista_indirizzi
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public User(string _name, string _surname) {
+        public User(string _name, string _surname)
+        {
             Name = _name;
-            Surname = _surname;                
+            Surname = _surname;
         }
     }
 }

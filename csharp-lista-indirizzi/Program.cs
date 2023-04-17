@@ -17,18 +17,48 @@
             //Console.WriteLine(boolValue);
             //Console.WriteLine(boolValue.GetType());
        
-            List<Address> UsersAddressesList = new List<Address>();
+            List<UserAddressListItem> UsersAddressesList = new List<UserAddressListItem>();
 
             string filePath = "C:\\Users\\marika\\EXPERIS_projects\\csharp-lista-indirizzi\\addresses.CSV";
-            List<string[]> rowUsAdArraysOfParams = filePath.getListFromFile(false);
+            List<string[]> rowUsAdArraysOfParams = filePath.getListFromFile(true);
 
-            Console.WriteLine(rowUsAdArraysOfParams.Count);
+           
+            //Console.WriteLine(rowUsAdArraysOfParams[0]);
+            Console.WriteLine(rowUsAdArraysOfParams[0].Length);
 
-            foreach (string[] row in rowUsAdArraysOfParams)
+            UserAddressListItem UsAdListItem = new UserAddressListItem(rowUsAdArraysOfParams[0]);
+            Console.WriteLine(UsAdListItem.user.Name);
+
+            foreach (var item in rowUsAdArraysOfParams)
             {
-            //    ValidationRules.ValidateArrayParams(row);
-              //  Console.WriteLine(row);
+                UsersAddressesList.Add(new UserAddressListItem(item));
             }
+
+            foreach (var row in UsersAddressesList)
+            {
+               Console.WriteLine(row.user.Name);
+                Console.WriteLine(row.user.Surname);
+                Console.WriteLine(row.address.Street);
+                Console.WriteLine(row.address.City);
+                Console.WriteLine(row.address.Province);
+                Console.WriteLine(row.address.ZIP);
+                Console.WriteLine("::::::::::::::::::::::::::::::::");
+
+            }
+
+
+
+
+
+            //for (int i =0; i< rowUsAdArraysOfParams[0].Length; i++)
+            //{
+            //    Console.WriteLine(rowUsAdArraysOfParams[0][i]);
+            //    // UserAddressListItem UsAdListItem = new UserAddressListItem(rowUsAdArraysOfParams[i]);
+
+            //}    
+            //Console.WriteLine(rowUsAdArraysOfParams.Count);
+
+
         }
     }
 }

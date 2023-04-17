@@ -11,147 +11,74 @@ namespace csharp_lista_indirizzi
     { Name, Surname, Street, City, Province, ZIP }
     public class ValidationRules
     {
-        public static void ValidateArrayParams1(string[] arrayParam, int numParams)
-        {  string message;
-            switch (arrayParam.Length)
-            {
-                case var value when value < numParams: // that's the trick
-                    message = "troppi dati inseriti!";
-                    break;
-                case var value when value > numParams: // that's the trick
-                    message = "dati mancanti!";
-                    break;
-                default:
-                    message = ",";
-                    break;
-            }
-            Console.WriteLine($"dati inseriti: {arrayParam.Length}/6 {message}");
-        }
-        //controlli sull'array
-       
-        public static void ValidateArrayParams2(string[] paramsArray, int numParams, List<string[]>validatedParamsList )
-        {
-            //DAVIDE PERCHé QUESTO NON VA
-            //int n = numParams;
-            // string message = paramsArray.Length switch
-            // {
-            //    > n => "troppi dati inseriti",
-            //    < n => "dati mancanti",
-            //     _ => "tu puoi passare"
-            // };
-
-            //MA QUESTO SI?!?!?!
-            //string message1 = paramsArray.Length switch
-            //{
-            //    > 6 => "troppi dati inseriti",
-            //    < 6 => "dati mancanti",
-            //    _ => "tu puoi passare"
-            //};
-            string message;
-            List<string[]> arrayWerePushValidated = validatedParamsList;
-            switch (paramsArray.Length)
-            {
-                case var value when value > numParams: // that's the trick
-                    message = " troppi dati inseriti!";
-                    break;
-                case var value when value < numParams: // that's the trick
-                    message = " dati mancanti!";
-                    break;
-                default:
-                    message = ", ";
-
-
-                    // controllo sui sigoli valori();//deve ritornare true
-                    //if(controllo sui valori di array ritorna true ) validatedParamsLIst.add(arrayParams)
-                    arrayWerePushValidated.Add(paramsArray);
-
-                    break;
-            }
-            Console.WriteLine($"dati inseriti: {paramsArray.Length}/6{message}");
-        }
-
+     
         public static void ValidateArrayParams(string[] paramsArray, List<string[]> validatedParamsList)
         {
+
+            //for (int i = 0; i < paramsArray.Length; i++)
+            //{
+            //    Console.Write(paramsArray[i] + " ");
+            //}
+            Console.WriteLine(":   ");
+
             var ParamsCount = Enum.GetNames(typeof(ClassRequiredParams)).Length;
+
             string message;
+
             List<string[]> arrayWerePushValidated = validatedParamsList;
             switch (paramsArray.Length)
             {
                 case var value when value > ParamsCount: 
                     message = " troppi dati inseriti!";
+                    Console.WriteLine($"dati inseriti: {paramsArray.Length}/{ParamsCount}{message}  --- FAIL");
                     break;
                 case var value when value < ParamsCount:
                     message = " dati mancanti!";
+                    Console.WriteLine($"dati inseriti: {paramsArray.Length}/{ParamsCount}{message}  --- FAIL");
                     break;
                 default:
-                    message = ", ";
+                    message = " ";
+                    Console.Write($"dati inseriti: {paramsArray.Length}/{ParamsCount}{message}");
 
 
-                    // controllo sui sigoli valori();//deve ritornare true
-                    //if(controllo sui valori di array ritorna true ) validatedParamsLIst.add(arrayParams)
-                    arrayWerePushValidated.Add(paramsArray);
-
-                    for (int i = 0; i < ParamsCount; i++) {
-
-
-                        //                                char[]?,                                                          requiredChars
-                       
-
-                        //switch (arrayParam.Length)
-                        //{
-                        //    case var value when value < numParams: // that's the trick
-                        //        message = "troppi dati inseriti!";
-                        //        break;
-                        //    case var value when value > numParams: // that's the trick
-                        //        message = "dati mancanti!";
-                        //        break;
-                        //    default:
-                        //        message = ",";
-                        //        break;
-                        //}
-
-                        ValidateString(Func<string, bool, bool, int?, int?, bool> (params) filter , bool x);
-                    
-                    
-                    
-                    }
-                    break;
+                    if (Validatestring((paramsArray[((int)(ClassRequiredParams.Name))]), false, false, null, null))
+                        if (Validatestring((paramsArray[((int)(ClassRequiredParams.Surname))]), false, false, null, null))
+                            if (Validatestring((paramsArray[((int)(ClassRequiredParams.Street))]), false, false, null, null))
+                                if (Validatestring((paramsArray[((int)(ClassRequiredParams.City))]), false, false, null, null))
+                                    if (Validatestring((paramsArray[((int)(ClassRequiredParams.Province))]), false, false, 2, 2))
+                                        if (Validatestring((paramsArray[((int)(ClassRequiredParams.ZIP))]), false, true, null, null))
+                                        {
+                                            arrayWerePushValidated.Add(paramsArray);
+                                            Console.WriteLine("--- SUCCESS");
+                                        }
+               break;
             }
-            Console.WriteLine($"dati inseriti: {paramsArray.Length}/{ParamsCount}{message}");
+           
         }
 
 
-
-        //STRING
-        public static bool ValidateString(Func<string, bool, bool, int?, int?, bool> filter, bool x)
+        public static bool Validatestring (string paramToValidate, bool isEmpty, bool toInt, int? minNum,int? maxNum)
         {
-                      return  x= filter("string", true, true, null, 1);
-        }
 
-        //funzione magica a cui passo una stringa e mi restituisce se per i parametri richiesti è validata o no (booleano)
-        //                                char[]?,                                                          requiredChars
-        Func<string, bool, bool, int?, int?, bool> filter = (paramToValidate, isEmpty, toInt, minNum, maxNum) =>
-        {
             bool result = true;
 
             if (!isEmpty && string.IsNullOrWhiteSpace(paramToValidate))
             {
-                Console.WriteLine($"{paramToValidate} non è un dato valido perchè vuoto");
+                Console.WriteLine($"'{paramToValidate}' non è un dato valido perchè vuoto  --- FAIL");
                 result = false;
             }
-            if (minNum != null && paramToValidate.Length < minNum)
+            else if (minNum != null && paramToValidate.Length < minNum)
             {
-                Console.WriteLine($"{paramToValidate} non è un dato valido perchè formato da - di {minNum} caratteri");
+                Console.WriteLine($"'{paramToValidate}' non è un dato valido perchè formato da - di {minNum} caratteri --- FAIL");
                 result = false;
             }
-            if (maxNum != null && paramToValidate.Length > maxNum)
+            else if (maxNum != null && paramToValidate.Length > maxNum)
             {
-                Console.WriteLine($"{paramToValidate} non è un dato valido perchè formato da  di {maxNum} caratteri");
+                Console.WriteLine($"'{paramToValidate}' non è un dato valido perchè formato da + di {maxNum} caratteri --- FAIL");
                 result = false;
             }
-            if (toInt)
+            else if (toInt)
             {
-                Console.WriteLine(paramToValidate.GetType());
 
                 //converte stringa in numero se non è convertibile restituisce 0
                 int intValue = int.TryParse(paramToValidate, out intValue) ? intValue : 0;
@@ -159,16 +86,12 @@ namespace csharp_lista_indirizzi
                 bool boolValue = Convert.ToBoolean(intValue);
                 if (!boolValue)
                 {
-
-                    Console.WriteLine(boolValue);
-                    //   Console.WriteLine(boolValue.GetType());
-                    Console.WriteLine($"{paramToValidate} non è un dato valido perchè non è un numero");
+                    Console.WriteLine($"'{paramToValidate}' non è un dato valido perchè non è un numero --- FAIL");
                     result = false;
                 }
             }
-
             return result;
-        };
+        }
 
     } 
 }

@@ -12,26 +12,15 @@ namespace csharp_lista_indirizzi
         {
 
             List<string[]> rowArrayList = new List<string[]>();
-            var addressesFile = File.OpenText(path);
             int i=0;
+            var addressesFile = File.OpenText(path);
             while (!addressesFile.EndOfStream)
             {
-
-                //Console.WriteLine(addressesFile.ReadLine());
-                //Console.WriteLine( File.ReadLines(path).First());
-                //Console.WriteLine(addressesFile.ReadLine() == File.ReadLines(path).First());
                 if (ignoreFirstLine && i++ == 0) continue;
-
                 string fileRow = addressesFile.ReadLine();
+                Console.Write(fileRow); 
                 var classParamsToControl_list = fileRow.Split(separator);//array
-
-
-//                ValidationRules.ValidateArrayParams1(classParamsToControl_list,6);
                 ValidationRules.ValidateArrayParams(classParamsToControl_list, rowArrayList);
-
-                //rowArrayList.Add(classParamsToControl_list);
-
-               // rowArrayList.Add(ValidationRules.ValidateArrayParams(classParamsToControl_list));
             }
             return rowArrayList;
         }

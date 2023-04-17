@@ -11,7 +11,7 @@ namespace csharp_lista_indirizzi
         public string Street { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
-        public int ZIP { get; set; }
+        public Int32 ZIP { get; set; }
 
         public Address(string _street, string _city, string _province, int _ZIP)
         {
@@ -19,7 +19,7 @@ namespace csharp_lista_indirizzi
             City = _city;
             Province = _province;
             ZIP = _ZIP;
-        } 
-        
+        }
+
     }
 }
